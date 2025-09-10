@@ -1,6 +1,7 @@
 package com.sparta.library.services;
 
 import com.sparta.library.dtos.AuthorDto;
+import com.sparta.library.dtos.AuthorCreateDto;
 import com.sparta.library.dtos.AuthorMapper;
 import com.sparta.library.entities.Author;
 import com.sparta.library.repositories.AuthorRepository;
@@ -36,11 +37,11 @@ public class AuthorService {
         return authorMapper.toDTO(author);
     }
 
-    public AuthorDto saveAuthor(AuthorDto authorDto){
-        if (authorDto == null) {
+    public AuthorDto saveAuthor(AuthorCreateDto authorCreateDto){
+        if (authorCreateDto == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }
-        Author entity = authorMapper.toEntity(authorDto);
+        Author entity = new Author(authorCreateDto.getFullName(), authorCreateDto.getEmail());
         Author savedAuthor = authorRepository.save(entity);
         return authorMapper.toDTO(savedAuthor);
     }

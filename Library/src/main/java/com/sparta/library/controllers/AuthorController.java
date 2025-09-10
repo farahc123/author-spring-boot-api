@@ -1,6 +1,7 @@
 package com.sparta.library.controllers;
 
 import com.sparta.library.dtos.AuthorDto;
+import com.sparta.library.dtos.AuthorCreateDto;
 import com.sparta.library.services.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +41,9 @@ public class AuthorController {
 
     @Operation(summary = "Add a new author", description = "Create a new author in the database")
     @PostMapping // no path needed here as it follows from original mapping above
-    public ResponseEntity<AuthorDto> addAuthor(@RequestBody AuthorDto authorDto) { // this annotation tells Spring to bind the JSON made by the HTTP request to a new Java object
-        AuthorDto saveAuthor = service.saveAuthor(authorDto);
-        return ResponseEntity.status(201).body(saveAuthor); // 201 "created" code
+    public ResponseEntity<AuthorDto> addAuthor(@RequestBody AuthorCreateDto authorCreateDto) {
+        AuthorDto saveAuthor = service.saveAuthor(authorCreateDto);
+        return ResponseEntity.status(201).body(saveAuthor);
     }
 
     @Operation(summary = "Delete an author", description = "Deletes an author by ID")
