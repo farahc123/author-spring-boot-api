@@ -1,6 +1,5 @@
 package com.sparta.library.services;
 
-
 import com.sparta.library.dtos.BookDto;
 import com.sparta.library.dtos.BookMapper;
 import com.sparta.library.entities.Book;
@@ -20,6 +19,9 @@ public class BookService {
         if (bookRepository == null) {
             throw new NullPointerException("BookRepository cannot be null");
         }
+        if (bookMapper == null) {
+            throw new NullPointerException("BookMapper cannot be null");
+        }
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
     }
@@ -34,11 +36,13 @@ public class BookService {
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
     }
 
-    public BookDto saveBook(Book book){
-        if (book == null) {
+    // controller passes DTO, service maps & persists entity, then maps back to DTO to return
+    public BookDto saveBook(BookDto bookDTO){
+        if (bookDTO == null) {
             throw new IllegalArgumentException("Book cannot be null");
         }
-        Book savedBook = bookRepository.save(book);
+        Book entity = bookMapper.toEntity(bookDTO);
+        Book savedBook = bookRepository.save(entity);
         return bookMapper.toDTO(savedBook);
     }
 
@@ -50,11 +54,13 @@ public class BookService {
         return false;
     }
 
-    public BookDto updateBook(Book book) {
-        if (!bookRepository.existsById(book.getId())) {
-            throw new IllegalArgumentException("Book does not exist");
+    public BookDto updateBook(BookDto bookDto) {
+        Integer id = bookDto.getId();
+        if (!bookRepository.existsById(id)) {
+            throw new NoSuchElementException("Book does not exist");
         }
-        Book savedBook = bookRepository.save(book);
+        Book entity = bookMapper.toEntity(bookDto);
+        Book savedBook = bookRepository.save(entity);
         return bookMapper.toDTO(savedBook);
     }
 }

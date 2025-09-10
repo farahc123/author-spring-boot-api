@@ -1,7 +1,6 @@
 package com.sparta.library.controllers;
 
 import com.sparta.library.dtos.AuthorDto;
-import com.sparta.library.entities.Author;
 import com.sparta.library.services.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +40,8 @@ public class AuthorController {
 
     @Operation(summary = "Add a new author", description = "Create a new author in the database")
     @PostMapping // no path needed here as it follows from original mapping above
-    public ResponseEntity<AuthorDto> addAuthor(@RequestBody Author author) { // this annotation tells Spring to bind the JSON made by the HTTP request to a new Java object
-        AuthorDto saveAuthor = service.saveAuthor(author);
+    public ResponseEntity<AuthorDto> addAuthor(@RequestBody AuthorDto authorDto) { // this annotation tells Spring to bind the JSON made by the HTTP request to a new Java object
+        AuthorDto saveAuthor = service.saveAuthor(authorDto);
         return ResponseEntity.status(201).body(saveAuthor); // 201 "created" code
     }
 
@@ -60,10 +59,10 @@ public class AuthorController {
 
     @Operation(summary = "Update an author", description = "Modify an existing author's details in the database")
     @PutMapping("/{id}")
-    public ResponseEntity<AuthorDto> updateAuthor(@PathVariable Integer id, @RequestBody Author author) {
-        author.setAuthorId(id);
+    public ResponseEntity<AuthorDto> updateAuthor(@PathVariable Integer id, @RequestBody AuthorDto authorDto) {
+        authorDto.getId();
         try {
-            AuthorDto updatedAuthor = service.updateAuthor(author);
+            AuthorDto updatedAuthor = service.updateAuthor(authorDto);
             return ResponseEntity.ok(updatedAuthor);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();

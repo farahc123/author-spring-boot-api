@@ -30,9 +30,9 @@ public class BookController {
     // the below may be optional to set up as Spring can do it automatically with starter-data-rest dependency (which also does HATEOAS)
     @GetMapping("/{id}") // arg must match the PV parameter in line below
     public ResponseEntity<BookDto> getBookById(@PathVariable Integer id) {
-        BookDto book = service.getBookByID(id);
-        if(book != null){
-            return ResponseEntity.ok(book);
+        BookDto bookDto = service.getBookByID(id);
+        if(bookDto != null){
+            return ResponseEntity.ok(bookDto);
         }
         else{
             return ResponseEntity.notFound().build(); // returns 404 not found response
@@ -41,16 +41,16 @@ public class BookController {
 
     @Operation(summary = "Add a new book", description = "Create a new book in the database")
     @PostMapping // no path needed here as it follows from original mapping above
-    public ResponseEntity<BookDto> addBook(@RequestBody Book book) { // this annotation tells Spring to bind the JSON made by the HTTP request to a new Java object
-        BookDto saveBook = service.saveBook(book);
-        return ResponseEntity.status(201).body(saveBook); // 201 "created" code
+    public ResponseEntity<BookDto> addBook(@RequestBody BookDto bookDTO) { // this annotation tells Spring to bind the JSON made by the HTTP request to a new Java object
+        BookDto savedBook = service.saveBook(bookDTO);
+        return ResponseEntity.status(201).body(savedBook); // 201 "created" code
     }
 
     @Operation(summary = "Delete a book", description = "Deletes a book by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Integer id) {
-        BookDto book = service.getBookByID(id);
-        if (book != null) {
+        BookDto bookDto = service.getBookByID(id);
+        if (bookDto != null) {
             service.deleteBookById(id); // method I created
             return ResponseEntity.noContent().build(); // 204 no content error
         } else {
@@ -60,10 +60,10 @@ public class BookController {
 
     @Operation(summary = "Update a book", description = "Modify an existing book's details in the database")
     @PutMapping("/{id}")
-    public ResponseEntity<BookDto> updateBook(@PathVariable Integer id, @RequestBody Book book) {
-        book.setId(id);
+    public ResponseEntity<BookDto> updateBook(@PathVariable Integer id, @RequestBody BookDto bookDto) {
+        bookDto.getId();
         try {
-            BookDto updatedBook = service.updateBook(book);
+            BookDto updatedBook = service.updateBook(bookDto);
             return ResponseEntity.ok(updatedBook);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();

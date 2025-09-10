@@ -19,6 +19,9 @@ public class AuthorService {
         if (authorRepository == null) {
             throw new NullPointerException("AuthorRepository cannot be null");
         }
+        if (authorMapper == null) {
+            throw new NullPointerException("AuthorMapper cannot be null");
+        }
         this.authorRepository = authorRepository;
         this.authorMapper = authorMapper;
     }
@@ -28,16 +31,17 @@ public class AuthorService {
     }
 
     public AuthorDto getAuthorByID(Integer id){
-        return authorRepository.findById(id)
-                .map(authorMapper::toDTO)
+        Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Author not found"));
+        return authorMapper.toDTO(author);
     }
 
-    public AuthorDto saveAuthor(Author author){
-        if (author == null) {
+    public AuthorDto saveAuthor(AuthorDto authorDto){
+        if (authorDto == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }
-        Author savedAuthor = authorRepository.save(author);
+        Author entity = authorMapper.toEntity(authorDto);
+        Author savedAuthor = authorRepository.save(entity);
         return authorMapper.toDTO(savedAuthor);
     }
 
@@ -49,11 +53,13 @@ public class AuthorService {
         return false;
     }
 
-    public AuthorDto updateAuthor(Author author) {
-        if (!authorRepository.existsById(author.getId())) {
-            throw new IllegalArgumentException("Author does not exist");
+    public AuthorDto updateAuthor(AuthorDto authorDto) {
+        Integer id = authorDto.getId();
+        if (!authorRepository.existsById(id)) {
+            throw new NoSuchElementException("Author does not exist");
         }
-        Author savedAuthor = authorRepository.save(author);
+        Author entity = authorMapper.toEntity(authorDto);
+        Author savedAuthor = authorRepository.save(entity);
         return authorMapper.toDTO(savedAuthor);
     }
 }
