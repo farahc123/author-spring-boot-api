@@ -21,7 +21,7 @@ public class BookDto implements Serializable {
         this.author = author;
     }
 
-    public Integer getId() {
+    public Integer getBookId() {
         return id;
     }
 

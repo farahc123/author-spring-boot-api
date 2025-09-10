@@ -1,8 +1,10 @@
 package com.sparta.library.dtos;
 
+import com.sparta.library.entities.Book;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,23 +17,20 @@ public class AuthorDto implements Serializable {
     private final String fullName;
     private final BookDto book;
 
-    public AuthorDto(Integer id, String fullName, BookDto book) {
+    public AuthorDto(Integer id, String fullName, BookDto book, List<BookDto> books) {
         this.id = id;
         this.fullName = fullName;
         this.book = book;
+        this.books = books;
     }
 
-    public Integer getId() {
-        return id;
-    }
+    // Standard getters matching field names
+    public Integer getId() { return id; }
+    public String getFullName() { return fullName; }
+//    public BookDto getBooks() { return book; }
+    private final List<BookDto> books;
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public BookDto getBook() {
-        return book;
-    }
+    public List<BookDto> getBooks() { return books; }
 
     @Override
     public boolean equals(Object o) {

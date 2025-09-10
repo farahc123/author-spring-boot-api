@@ -16,15 +16,20 @@ import jakarta.persistence.*;
         @Column(name = "full_name", length = 40)
         private String fullName;
 
+        @Column(name = "email", length = 40)
+        private String email;
+
         @OneToMany(
                 mappedBy = "author",
                 cascade = CascadeType.ALL, // removes associated records in Books table
-                orphanRemoval = true
+                orphanRemoval = true,
+                fetch = FetchType.EAGER
         )
         private List<Book> books = new ArrayList<>();
 
-        public Author(String fullName) {
+        public Author(String fullName, String email) {
             this.fullName = fullName;
+            this.email = email;
         }
 
         public Author() {
@@ -50,4 +55,11 @@ import jakarta.persistence.*;
             return this.books;
         }
 
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
     }

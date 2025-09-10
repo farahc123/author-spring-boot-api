@@ -19,14 +19,17 @@ public class DataLoader {
     public CommandLineRunner loadData(AuthorRepository authorRepository, BookRepository bookRepository) { // special type of interface that executes code after the app context (incl. beans) has been fully loaded
         return args -> {
             if (authorRepository.count() == 0 && bookRepository.count() == 0) {
-                Author author1 = new Author("JRR Tolkien");
-                Author author2 = new Author("Douglas Adams");
+                Author author1 = new Author("JRR Tolkien", "jr@mordor.com");
+                Author author2 = new Author("Douglas Adams", "da@galaxy.com");
+                Author author3 = new Author("Richard Powers", "rp@overstory.com");
                 authorRepository.save(author1);
                 authorRepository.save(author2);
+                authorRepository.save(author3);
 
                 Book book1 = new Book("LOTR: Fellowship of the Ring", author1);
                 Book book2 = new Book("LOTR: Two Towers", author1);
                 Book book3 = new Book("Hitchhiker's Guide to the Galaxy", author2);
+                Book book4 = new Book("The Overstory", author3);
                 bookRepository.save(book1);
                 bookRepository.save(book2);
                 bookRepository.save(book3);
