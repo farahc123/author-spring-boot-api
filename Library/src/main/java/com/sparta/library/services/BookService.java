@@ -51,7 +51,7 @@ public class BookService {
     }
 
     public BookDto updateBook(Book book) {
-        if (!bookRepository.existsById(book.getBookId())) {
+        if (!bookRepository.existsById(book.getId())) {
             throw new IllegalArgumentException("Book does not exist");
         }
         Book savedBook = bookRepository.save(book);

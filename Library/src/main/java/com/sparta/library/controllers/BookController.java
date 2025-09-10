@@ -61,7 +61,7 @@ public class BookController {
     @Operation(summary = "Update a book", description = "Modify an existing book's details in the database")
     @PutMapping("/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable Integer id, @RequestBody Book book) {
-        book.setBookId(id);
+        book.setId(id);
         try {
             BookDto updatedBook = service.updateBook(book);
             return ResponseEntity.ok(updatedBook);

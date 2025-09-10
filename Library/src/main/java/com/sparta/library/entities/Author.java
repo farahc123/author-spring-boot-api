@@ -43,7 +43,7 @@ import jakarta.persistence.*;
             this.fullName = fullName;
         }
 
-        public Integer getAuthorId() {
+        public Integer getId() {
             return id;
         }
 

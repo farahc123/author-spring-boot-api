@@ -33,6 +33,7 @@ public class DataLoader {
                 bookRepository.save(book1);
                 bookRepository.save(book2);
                 bookRepository.save(book3);
+                bookRepository.save(book4);
 
                 System.out.println("Seed data added");
             } else {

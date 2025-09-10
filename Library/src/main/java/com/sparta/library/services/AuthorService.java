@@ -50,7 +50,7 @@ public class AuthorService {
     }
 
     public AuthorDto updateAuthor(Author author) {
-        if (!authorRepository.existsById(author.getAuthorId())) {
+        if (!authorRepository.existsById(author.getId())) {
             throw new IllegalArgumentException("Author does not exist");
         }
         Author savedAuthor = authorRepository.save(author);
