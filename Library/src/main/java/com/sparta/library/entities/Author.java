@@ -38,11 +38,11 @@ import jakarta.persistence.*;
             this.fullName = fullName;
         }
 
-        public Integer getId() {
+        public Integer getAuthorId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setAuthorId(Integer id) {
             this.id = id;
         }
 

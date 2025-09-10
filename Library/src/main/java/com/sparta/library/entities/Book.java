@@ -26,11 +26,11 @@ public class Book {
     public Book() {
     }
 
-    public Integer getId() {
+    public Integer getBookId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setBookId(Integer id) {
         this.id = id;
     }
 
