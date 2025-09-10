@@ -12,7 +12,7 @@ public class Book {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "Title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title; // Renamed to lowercase 'title'
 
     @ManyToOne(fetch = FetchType.EAGER) // determines when related entities are loaded from the database
