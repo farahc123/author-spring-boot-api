@@ -25,7 +25,7 @@ public class AuthorDto implements Serializable {
         this.email = email;
     }
 
-  
+
     public Integer getId() { return id; }
     public String getFullName() { return fullName; }
     public String getEmail() { return email; }

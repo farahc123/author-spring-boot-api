@@ -13,7 +13,7 @@ public interface AuthorMapper {
     @Mapping(target = "email", source = "email")
     AuthorDto toDTO(Author author);
 
-    
+
     @Mapping(target = "fullName", source = "fullName")
     @Mapping(target = "email", source = "email")
     @Mapping(target = "books", source = "books")
