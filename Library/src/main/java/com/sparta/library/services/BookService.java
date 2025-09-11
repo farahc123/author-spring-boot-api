@@ -73,6 +73,6 @@ public class BookService {
     private BookSummaryDto toSummaryDto(Book book) {
         String authorName = (book.getAuthor() != null) ? book.getAuthor().getFullName() : null;
         Integer authorId = (book.getAuthor() != null) ? book.getAuthor().getId() : null;
-        return new BookSummaryDto(book.getId(), book.getTitle(), authorName, authorId);
+        return new BookSummaryDto(book.getTitle(), authorName, authorId);
     }
 }

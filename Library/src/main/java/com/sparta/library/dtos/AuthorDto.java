@@ -16,7 +16,7 @@ public class AuthorDto implements Serializable {
     @NotNull
     private String fullName;
     private List<BookDto> books;
-    private String email;
+    private String email; // will want to hide this for GET requests in v2
 
     public AuthorDto(Integer id, String fullName, String email, List<BookDto> books) {
         this.id = id;
